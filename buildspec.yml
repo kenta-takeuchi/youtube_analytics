@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      docker: 18
+  build:
+    commands:
+      - bash "${CODEBUILD_SRC_DIR/infra/codebuild_cmd/frontend/install.sh"
+      - bash "${CODEBUILD_SRC_DIR/infra/codebuild_cmd/backend/build_docker_image.sh"
+  post_build:
+    commands:
+      - bash "${CODEBUILD_SRC_DIR/infra/codebuild_cmd/frontend/test_and_build.sh"
+      - bash "${CODEBUILD_SRC_DIR/infra/codebuild_cmd/backend/push_to_ecr.sh"
+      - bash ./push_to_ecr.sh
+artifacts:
+  secondary-artifacs:
+    Frontend:
+      name: 'Frontend'
+      base-directory: "${CODEBUILD_SRC_DIR/frontend/build"
+      files:
+        - "**/*"
+    Backend:
+      name: 'Backend'
+      base-directory: "${CODEBUILD_SRC_DIR/backend"
+      files:
+        - imagedefinitions.json
