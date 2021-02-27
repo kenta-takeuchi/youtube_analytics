@@ -3,11 +3,15 @@ class YoutubeError(Exception):
 
 
 class NoChannelError(YoutubeError):
-    """チャンネルが見つからなかった時のエラークラス"""
+    """チャンネル情報を取得できなかった時のエラークラス"""
 
 
 class NoMovieError(YoutubeError):
-    """動画が見つからなかった時のエラークラス"""
+    """動画情報を取得できなかった時のエラークラス"""
+
+
+class NoMovieDetailError(YoutubeError):
+    """動画の詳細情報を取得できなかった時のエラークラス"""
 
 
 class NetworkAccessError(YoutubeError):
