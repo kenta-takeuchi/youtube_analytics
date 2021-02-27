@@ -1,7 +1,12 @@
 from apiclient.discovery import build
 from decouple import config
 
-from .error import YoutubeError, NoChannelError, NoMovieError, NoMovieDetailError, NetworkAccessError
+from backend.youtube.error import (
+    NoChannelError,
+    NoMovieError,
+    NoMovieDetailError,
+)
+
 
 YOUTUBE_API_KEY = config('YOUTUBE_API_KEY')
 
@@ -13,11 +18,6 @@ class YoutubeService:
     """
     def __init__(self):
         self.__youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
-
-    # @staticmethod
-    # def check_status_code(response_from_youtube_api):
-    #     if response_from_youtube_api['status_code'] != 200:
-    #         raise NetworkAccessError(f'Network Error. status code: {channels_response["status_code"]}')
 
     def get_channel_by_channel_id(self, channel_id: str) -> str:
         """
